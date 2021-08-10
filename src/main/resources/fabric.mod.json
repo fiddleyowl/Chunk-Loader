@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "chunkloader",
   "version": "${version}",
 
   "name": "Chunk Loader",
@@ -13,7 +13,7 @@
     "sources": "https://github.com/fiddleyowl/Chunk-Loader"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
@@ -23,7 +23,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "chunkloader.mixins.json"
   ],
 
   "depends": {
