@@ -1,5 +1,6 @@
 package com.philipzhan.chunkLoader.registry;
 
+import com.philipzhan.chunkLoader.Blocks.ChunkLoaderBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -11,7 +12,7 @@ import net.minecraft.util.registry.Registry;
 import static com.philipzhan.chunkLoader.SupportingFiles.PublicDefinitions.*;
 
 public class ModBlocks {
-    public static final Block CHUNK_LOADER = new Block(FabricBlockSettings
+    public static final Block CHUNK_LOADER = new ChunkLoaderBlock(FabricBlockSettings
             .of(Material.PORTAL)
             .hardness(50.0f)
             .resistance(5000.0f)
