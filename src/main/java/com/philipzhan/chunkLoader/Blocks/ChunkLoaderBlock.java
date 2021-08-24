@@ -1,6 +1,5 @@
 package com.philipzhan.chunkLoader.Blocks;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -8,11 +7,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
+
+import static com.philipzhan.chunkLoader.SupportingFiles.PublicDefinitions.*;
 
 public class ChunkLoaderBlock extends Block {
 
@@ -34,11 +34,8 @@ public class ChunkLoaderBlock extends Block {
             ServerWorld serverWorld = server.getOverworld();
             WorldChunk worldChunk = serverWorld.getChunk(chunkX,chunkZ);
             serverWorld.setChunkForced(chunkX, chunkZ,true);
-            ServerTickEvents.START_SERVER_TICK.register((listener) -> {
-                int tickSpeed = serverWorld.getGameRules().getInt(GameRules.RANDOM_TICK_SPEED);
-                serverWorld.tickChunk(worldChunk, tickSpeed);
-                System.out.println("Ticked");
-            });
+            chunkXs.add(chunkX);
+            chunkZs.add(chunkZ);
         }
     }
 
@@ -55,6 +52,13 @@ public class ChunkLoaderBlock extends Block {
             MinecraftServer server = world.getServer();
             ServerWorld serverWorld = server.getOverworld();
             serverWorld.setChunkForced(chunkX, chunkZ,false);
+            for (int i = 0; i < chunkXs.size(); i++) {
+                if (chunkX == chunkXs.get(i) && chunkZ == chunkZs.get(i)) {
+                    chunkXs.remove(i);
+                    chunkZs.remove(i);
+                    break;
+                }
+            }
         }
     }
 
