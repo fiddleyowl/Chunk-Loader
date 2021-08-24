@@ -18,10 +18,6 @@ public class PublicDefinitions {
         double chunkPosCenterZ = chunkPos.getCenterZ();
         double playerX = playerPos.x;
         double playerZ = playerPos.z;
-        if (Math.sqrt(Math.pow(chunkPosCenterX - playerX,2) + Math.pow(chunkPosCenterZ - playerZ,2)) > 128.0) {
-            return true;
-        } else {
-            return false;
-        }
+        return Math.sqrt(Math.pow(chunkPosCenterX - playerX, 2) + Math.pow(chunkPosCenterZ - playerZ, 2)) > 128.0;
     }
 }
