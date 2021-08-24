@@ -31,6 +31,9 @@ public class ChunkLoader implements ModInitializer {
             LongSet longSet = server.getOverworld().getForcedChunks();
             for (Long longItem: longSet) {
                 String numbers = Long.toHexString(longItem);
+                for (int i = 0; i < 16 - numbers.length(); i++) {
+                    numbers = "0" + numbers;
+                }
                 String numberZ = numbers.substring(0,8);
                 long longZ = Long.parseLong(numberZ, 16);
                 int z = (int) longZ;
