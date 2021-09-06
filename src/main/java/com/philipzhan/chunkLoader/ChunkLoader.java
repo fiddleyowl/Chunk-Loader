@@ -17,7 +17,6 @@ import static com.philipzhan.chunkLoader.SupportingFiles.PublicDefinitions.*;
 
 public class ChunkLoader implements ModInitializer {
 
-
     @Override
     public void onInitialize() {
         // This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -30,9 +29,10 @@ public class ChunkLoader implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             LongSet longSet = server.getOverworld().getForcedChunks();
             for (Long longItem: longSet) {
-                String numbers = Long.toHexString(longItem);
-                for (int i = 0; i < 16 - numbers.length(); i++) {
-                    numbers = "0" + numbers;
+                StringBuilder numbers = new StringBuilder(Long.toHexString(longItem));
+                int length = 16 - numbers.length();
+                for (int i = 0; i < length; i++) {
+                    numbers.insert(0, "0");
                 }
                 String numberZ = numbers.substring(0,8);
                 long longZ = Long.parseLong(numberZ, 16);
@@ -57,7 +57,7 @@ public class ChunkLoader implements ModInitializer {
                 for (ServerPlayerEntity player: serverWorld.getPlayers()) {
                     if (shouldTickChunk(worldChunk.getPos(), player.getPos())) {
                         serverWorld.tickChunk(worldChunk, tickSpeed);
-                        System.out.println("Ticked chunk x: " + worldChunk.getPos().x + ", z: " + worldChunk.getPos().z);
+                        // System.out.println("Ticked chunk x: " + worldChunk.getPos().x + ", z: " + worldChunk.getPos().z);
                         continue outerFor;
                     }
                 }
